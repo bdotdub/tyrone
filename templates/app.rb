@@ -5,8 +5,3 @@ helpers do
     {:style => 'display:none'}
   end
 end
-
-# Override the homepage to solidify your mockup.
-# get '/' do
-#   ...
-# end

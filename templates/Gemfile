@@ -1,5 +1,6 @@
 gem 'sinatra'
 gem 'haml'
+gem 'tyrone'
 
 group :development do
   gem 'shotgun'

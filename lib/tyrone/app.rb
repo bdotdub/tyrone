@@ -1,3 +1,10 @@
+configure do
+  set :app_file => 'app.rb'
+  set :views => 'mockups'
+  set :haml => {:format => :html5}
+  enable :inline_templates
+end
+
 helpers do
   def mockup_path(mockup)
     "/mockups/#{mockup.to_s.gsub(' ','_')}"
@@ -11,8 +18,9 @@ end
 
 get '/mockups/?' do
   @mockups = Dir.glob(File.join(options.views, '*.haml')).
-    reject {|f| f == 'layout.haml'}.
-    map {|f| [File.basename(f,'.haml').gsub('_',' '), File.mtime(f)]}
+    reject {|f| f == 'mockups/layout.haml'}.
+    sort_by {|f| File.mtime(f)}.reverse.
+    map {|f| File.basename(f,'.haml').gsub('_',' ')}
 
   haml :tyrone_index, :layout => false
 end
@@ -52,6 +60,10 @@ __END__
             :color #333
             &:hover
               :border-bottom 1px solid #333
+          small
+            color: #CCC
+            text-transform: uppercase
+            font-size: 10px
         .footer
           :font-size 11px
           :line-height 20px

@@ -6,9 +6,4 @@ rescue LoadError
 end
 
 Bundler.require
-
-configure do
-  set :app_file => 'app.rb'
-  set :haml => {:format => :html5}
-  enable :inline_templates
-end
+require 'tyrone/app'

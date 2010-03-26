@@ -7,7 +7,7 @@ class Tyrone::Cli < Thor
 
   desc 'init', 'creates a new tyrone project in the current directory'
   def init
-    source_root = Tyrone.root
+    @project = Pathname.pwd.basename
 
     copy_file 'Rakefile', 'Rakefile'
     copy_file 'Gemfile', 'Gemfile'
@@ -18,24 +18,24 @@ class Tyrone::Cli < Thor
     empty_directory 'mockups'
 
     empty_directory 'public'
-    template 'layout.haml.erb', 'mockups/layout.haml', :project => Pathname.pwd.basename
+    template 'layout.haml.erb', 'mockups/layout.haml'
 
     empty_directory 'public/css'
-    copy_file 'http://html5resetcss.googlecode.com/files/html5reset-1.4.1.css', 'public/css/reset.css'
+    get 'http://html5resetcss.googlecode.com/files/html5reset-1.4.1.css', 'public/css/reset.css'
 
     empty_directory 'public/js'
-    copy_file 'http://github.com/toolmantim/states.js/raw/master/states.js', 'public/js/jquery.states.js'
-    copy_file 'http://github.com/quackingduck/jquery.grid.js/raw/master/jquery.grid.js', 'public/js/jquery.grid.js'
+    get 'http://github.com/toolmantim/states.js/raw/master/states.js', 'public/js/jquery.states.js'
+    get 'http://github.com/quackingduck/jquery.grid.js/raw/master/jquery.grid.js', 'public/js/jquery.grid.js'
 
     empty_directory 'features'
+
+    system 'bundle install'
   end
 
   desc 'mock NAME', 'creates a new mock'
   def mock(name)
-    name.gsub!(' ','-')
-
     empty_directory 'mockups'
-    create_file "mockups/#{name}.haml"
+    create_file "mockups/#{name.gsub(' ','-')}.haml"
   end
 
 end

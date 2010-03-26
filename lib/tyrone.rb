@@ -12,7 +12,7 @@ module Tyrone
   end
 
   def templates
-    libdir.join('templates')
+    root.join('templates')
   end
 end
 
