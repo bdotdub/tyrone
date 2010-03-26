@@ -1,39 +1,40 @@
-set :haml => {:format => :html5}
-
 helpers do
   def mockup_path(mockup)
     "/mockups/#{mockup.to_s.gsub(' ','_')}"
   end
 end
 
+# Please override me
 get '/' do
-  use_in_file_templates!
-  @mockups = Dir.glob(File.join(options.views, '*.haml')).map do |mockup|
-    File.basename(mockup,'.*').gsub('_',' ')
-  end.reject {|file| file == 'layout'}
-  haml :index, :layout => false
+  redirect '/mockups'
 end
 
-get '/mockups/:mockup' do |mockup|
+get '/mockups/?' do
+  @mockups = Dir.glob(File.join(options.views, '*.haml')).
+    reject {|f| f == 'layout.haml'}.
+    map {|f| [File.basename(f,'.haml').gsub('_',' '), File.mtime(f)]}
+
+  haml :tyrone_index, :layout => false
+end
+
+get '/mockups/:mockup/?' do |mockup|
   haml mockup.to_sym
 end
 
 __END__
-
-@@index
+@@tyrone_index
 !!!
 %html
   %head
     %title mockups
     %style{:type => 'text/css', :media => 'screen'}
       :sass
-
         *
           :margin 0
           :padding 0
         body
           :margin 40px
-          :font-family Helvetica, sans-serif
+          :font-family Helvetica, Arial, sans-serif
         h1
           :font-size 24px
           :line-height 40px

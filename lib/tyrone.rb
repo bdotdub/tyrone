@@ -1,11 +1,19 @@
+require 'pathname'
+
 module Tyrone
   extend self
 
+  def root
+    Pathname(__FILE__).dirname.join('..')
+  end
+
   def version
-    '0.4.1'
+    root.join('VERSION').read.freeze
   end
 
   def templates
-    File.join(File.dirname(__FILE__),'..','templates')
+    libdir.join('templates')
   end
 end
+
+require 'tyrone/cli'

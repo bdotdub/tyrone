@@ -1,0 +1,7 @@
+gem 'sinatra'
+gem 'haml'
+
+group :development do
+  gem 'shotgun'
+  gem 'thin'
+end

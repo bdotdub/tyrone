@@ -1,11 +1,23 @@
-require 'mg'
-require 'lib/tyrone'
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = 'tyrone'
+    gem.summary = 'care the shit out of your ui'
+    gem.homepage = 'http://github.com/chrislloyd/tyrone'
 
-mg = MG.new('tyrone.gemspec')
+    gem.author = 'Chris Lloyd'
+    gem.email = 'christopher.lloyd@gmail.com'
 
-tyrone_version = Tyrone.version
-gemspec_version = mg.spec.version.to_s
+    gem.rubyforge_project = gem.name
+    gem.executable = gem.name
+    gem.has_rdoc = false
 
-unless tyrone_version == gemspec_version
-  raise "Version mismatch: #{tyrone_version} (Tyrone) - #{gemspec_version} (gemspec)"
+    gem.add_dependency 'thor', '>= 0.13.0'
+    gem.add_dependency 'sinatra', '>= 1.0'
+    gem.add_dependency 'haml', '>= 2.2.0'
+    gem.add_dependency 'bundler', '>= 0.9.0'
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts 'Jeweler (or a dependency) not available. Install it with: gem install jeweler'
 end
