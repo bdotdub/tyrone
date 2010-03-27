@@ -1,48 +1,63 @@
 ![tyrone](http://cloud.github.com/downloads/chrislloyd/tyrone/logo.png)
 
-<small>a rapid prototyping fix. tyrone be great with uis. he loves em so much and will care the shit out of them. my boy tyrone is definitely the right man for the job, i aint playin. by [chris](http://chrislloyd.com.au).</small>
+<small>a rapid prototyping fix. tyrone be great with uis. he loves em so much and will care the shit out of them. my boy tyrone is definitely the right man for the job, i aint playin. by [the poacher](http://thelincolnshirepoacher.com).</small>
 
 It's always better to work from the UI down. Nobody cares about what database you are using or if you have 100% test coverage if the app itself _sucks_. Tyrone likes UIs. Like his community boxing gym, he likes to encourage good practices right from the start. He helps you get up and running prototyping UIs as quickly as possible so you can't procrastinate solving the real problems in your app.
 
-(For more information about Tyrone's intentions, please read the [associated article](http://chrislloyd.com.au/post/154530835/databases-are-for-pussies))
+(For more information about Tyrone's intentions, please read the [associated article](http://thelincolnshirepoacher.com/pages/databases-are-for-pussies))
 
 ![screenshot](http://cloud.github.com/downloads/chrislloyd/tyrone/tyrone-0.1.0.png)
 
 
 ## Installing
 
-    {gem,rip} install tyrone
+    gem install tyrone
 
-Then, to get Tyrone started on your job:
+Then, to get Tyrone started on your jobs directory:
 
-    tyrone [NAME OF JOB]
+    tyrone init
 
-Bada bing!
+Bada bing! To make a new mockup a convenience helper is
 
-If you want the `states.js` or the `grid.js` you can do so like this:
+    tyrone mock "my awesome new feature"
 
-    tyrone [NAME OF JOB] --states --grid
+## Running
+
+    rake dev
+
+Then open up [http://localhost:4567](http://localhost:4567)
+
+## Philosophy
+
+  * **Undefined scope is bad**. So define it quickly.
+  * **Mockups are not apps**. They shouldn't have tests. They shouldn't support IE.
+  * **Sensible Power**. Good defaults for dev but power when you need it.
 
 ## Features
 
-Tyrone believes in tough love. You're going to have to do alot of work yourself. However, he does want to give the pups a headstart. Your job _will_ use HTML 5 and comes with a HTML 5 `reset.css`. It's the way of the future and will save you time (see `input[placeholder]`). If you really object you can turn HTML 5 off, just by placeing this line in your Sinatra file:
+Tyrone believes in tough love. You're going to have to do a lot of work yourself. However, he does want to give the pups a head-start. Your job uses HTML 5 and comes with a HTML 5 `reset.css`.
 
-    set :haml => {:format => :xhtml}
+Straight out of compton, Tyrone be givin' u some crunk prototyping j-shizzle.
 
-Remember, it's just a Sinatra app so everything you can do in Sinatra you can do in Tyrone. However, you should note that the default behaviour of Sinatra is to process Sass files in the 'views' directory (or 'mockups' in Tyrone). Tyrone doesn't think that sytles are "views" so you can place your Sass files in 'public/css' and they'll get processed automagically. Word.
+  1. [states.js](http://github.com/toolmantim/states.js) &mdash; [t-star](http://toolmantim.com)'s script lets you hide and show bits of your UI so you can simulate state. For example toggle a user's account controls. Think [Polypage](http://github.com/andykent/polypage) on a diet.
+  2. [jquery.grid.js](http://github.com/quackingduck/jquery.grid.js) &mdash; A handy tool which overlays vertical and horizontal grids when SHIFT-v or SHIFT-h are pressed. You'll have to initialise it yourself, though. Big ups [byrne-diddy](http://myles.id.au).
 
-Straight out of compton, Tyrone be givin' u some crunk prototyping scripts.
+What choo get is just a [Sinatra](http://sinatrarb.com) app, so everything you can do in Sinatra you can do in Tyrone. Rather than the views directory, you now have `mockups`.
 
-  1. [states.js](http://github.com/toolmantim/states.js) &mdash; [t-star](http://toolmantim.com)'s script lets you hide and show bits of your UI so you can simulate state. For example hide and show a logged in user's account controls. Think [Polypage](http://github.com/andykent/polypage) on a diet.
-  2. [grid.js](http://gist.github.com/160497) &mdash; A handy tool which overlays vertical and horizontal grids when SHIFT-v or SHIFT-h are pressed. By default it is applied to `body` but you can change this in `application.js`. Big ups [byrne-diddy](http://myles.id.au).
-
-Some mockup helpers are:
+Some helpers are:
 
   * `hidden` &mdash; Just returns `{:style => 'display:none'}` so you can quickly hide elements. Useful when doing JS hiding and showing.
   * `mockup_path(mockup)` &mdash; Returns a URL to another mockup.
 
-The `features` directory is where you start placing your user stories. The prototyping phase is a great time to start writing them.
+To run the local server just type `rake dev`. If you then go to [localhost:4567](http://localhost:4567) you should be redirected to the '/mockups' page. This will show you an index of all the mockups you have. Often you want prototypes to behave like real apps so to set the root page just override it in your `app.rb`:
 
+    get '/' do
+      haml :my_index
+    end
+
+The `features` directory is where you start placing your user stories. The prototyping phase is a great time to start writing them, but don't feel like you need to implement them.
+
+All of tyrone's jobs come with [Bundler](http://github.com/carlhuda/bundler) built in and are ready to get up and running on [Heroku](http://heroku.com) with a simple `heroku create`.
 
 ## Associates
 
